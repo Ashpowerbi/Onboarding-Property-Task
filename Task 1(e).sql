@@ -1,15 +1,10 @@
 /*task1.e */
 
-SELECT Property.Name, Person.FirstName, Person.LastName, TargetRentType.Name
-FROM Property 
-INNER JOIN OwnerProperty ---Join between Property AND OwnerProperty
-ON Property.Id = OwnerProperty.PropertyId
-INNER JOIN PropertyRentalPayment prp --- Join between Property AND PropertyRentalPayment
-ON Property.id = prp.PropertyId
-INNER JOIN TargetRentType --- Join between Property AND TargetRentType
-ON Property.TargetRentTypeId = TargetRentType.Id
-INNER JOIN Person
-ON OwnerProperty.OwnerId = Person.Id
-INNER JOIN Tenant
-ON Person.Id = Tenant.Id
-WHERE OwnerProperty.OwnerId = '1426'
+select p.Name as PropertyName, CONCAT(FirstName, ' ', LastName) as TenantName, pay.Amount as RentalRate, F.Name as PaymentFrequency
+from dbo.OwnerProperty as OP
+INNER JOIN dbo.PropertyRepayment as Pay on OP.PropertyId = pay.PropertyId
+INNER JOIN dbo.Property as P on p.Id = pay.PropertyId
+INNER JOIN dbo.TenantPaymentFrequencies as F on F.Id = Pay.FrequencyType
+INNER JOIN dbo.TenantProperty as TP on TP.PropertyId = pay.PropertyId
+INNER JOIN dbo.Person PE on PE.Id = TP.TenantId
+Where OP.OwnerId = 1426
