@@ -28,3 +28,25 @@ where OwnerProperty.OwnerId = 1426) AND PropertyHomeValue.IsActive = 1;
 select pf.Yield, op.PropertyId from dbo.PropertyFinance pf
 join dbo.OwnerProperty op on pf.PropertyId = op.PropertyId
 where op.OwnerId = 1426;
+
+/*task1.c.ii(redo)*/
+
+select PropertyHomeValue.PropertyId,
+PropertyHomeValue.Value as HomeValue,
+PropertyFinance.Yield,
+Property.Name as PropertyName, 
+TenantProperty.PaymentAmount, 
+TenantPaymentFrequencies.Code as PaymentFrequency,
+TenantProperty.StartDate,
+TenantProperty.EndDate
+
+from PropertyHomeValue
+INNER JOIN OwnerProperty on dbo.OwnerProperty.PropertyId = PropertyHomeValue.PropertyId
+INNER JOIN dbo.Property ON dbo.OwnerProperty.PropertyId = Property.Id
+INNER JOIN dbo.PropertyFinance on dbo.OwnerProperty.PropertyId = dbo.PropertyFinance.PropertyId
+INNER JOIN dbo.TenantProperty ON dbo.OwnerProperty.PropertyId = dbo.TenantProperty.PropertyId
+INNER JOIN dbo.TenantPaymentFrequencies ON dbo.TenantProperty.PaymentFrequencyId = dbo.TenantPaymentFrequencies.Id
+where PropertyHomeValue.PropertyId IN (Select Property.Id as PropertyId
+from dbo.Property
+INNER JOIN dbo.OwnerProperty ON dbo.OwnerProperty.PropertyId = Property.Id
+where OwnerProperty.OwnerId = 1426) AND PropertyHomeValue.IsActive = 1;
