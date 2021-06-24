@@ -1,27 +1,28 @@
 /*task1.c.i*/
-SELECT Property.Id AS Property_ID,prp.Amount, 
-	   prp.FrequencyType,
-	   TargetRentType.Name AS Payment_Intervals,
-	   TenantProperty.StartDate,
-	   TenantProperty.EndDate,
-	   (CASE
-		 WHEN TargetRentType.Name = 'Fortnightly' THEN (DATEDIFF(Week, TenantProperty.StartDate, TenantProperty.EndDate)/2) * prp.Amount
-		 WHEN TargetRentType.Name = 'Weekly' THEN DATEDIFF(Week, TenantProperty.StartDate, TenantProperty.EndDate) * prp.Amount
-		 WHEN TargetRentType.Name = 'Monthly' THEN DATEDIFF(month, TenantProperty.StartDate, TenantProperty.EndDate) * prp.Amount
-		 ELSE ''
-	   END) AS Sum_Amount
-FROM Property
-	   INNER JOIN OwnerProperty ---Join between Property AND OwnerProperty
-	   ON Property.Id = OwnerProperty.PropertyId
-	   INNER JOIN PropertyRentalPayment prp --- Join between Property AND PropertyRentalPayment
-	   ON Property.id = prp.PropertyId
-	   INNER JOIN TargetRentType --- Join between Property AND TargetRentType
-	   ON Property.TargetRentTypeId = TargetRentType.Id
-       INNER JOIN TenantProperty --- Join between Property AND TenantProperty
-									 /*Caution: there is no relationship between two tables
-									   though each record shows a strong relationship*/
-	   ON Property.Id = TenantProperty.PropertyId
-WHERE OwnerProperty.OwnerId = '1426'
+
+
+select PropertyHomeValue.PropertyId,
+Property.Name as PropertyName, 
+TenantProperty.PaymentAmount, 
+TenantPaymentFrequencies.Code as PaymentFrequency,
+TenantProperty.StartDate,
+TenantProperty.EndDate,
+
+CASE WHEN TenantProperty.PaymentFrequencyId = 1 THEN (DATEDIFF(WEEK,TenantProperty.StartDate, TenantProperty.EndDate) * Tenantproperty.PaymentAmount)
+WHEN TenantProperty.PaymentFrequencyId = 2 THEN ((DATEDIFF(WEEK, TenantProperty.StartDate, TenantProperty.EndDate)/2) * TenantProperty.PaymentAmount)
+WHEN TenantProperty.PaymentFrequencyId = 3 THEN (DATEDIFF(MONTH, TenantProperty.StartDate, TenantProperty.EndDate) * TenantProperty.PaymentAmount)
+ELSE 0
+END AS TotalPayment
+
+from PropertyHomeValue
+INNER JOIN OwnerProperty on dbo.OwnerProperty.PropertyId = PropertyHomeValue.PropertyId
+INNER JOIN dbo.Property ON dbo.OwnerProperty.PropertyId = Property.Id
+INNER JOIN dbo.TenantProperty ON dbo.OwnerProperty.PropertyId = dbo.TenantProperty.PropertyId
+INNER JOIN dbo.TenantPaymentFrequencies ON dbo.TenantProperty.PaymentFrequencyId = dbo.TenantPaymentFrequencies.Id
+where PropertyHomeValue.PropertyId IN (Select Property.Id as PropertyId
+from dbo.Property
+INNER JOIN dbo.OwnerProperty ON dbo.OwnerProperty.PropertyId = Property.Id
+where OwnerProperty.OwnerId = 1426) AND PropertyHomeValue.IsActive = 1;
 
 /*task1.c.ii*/
 
