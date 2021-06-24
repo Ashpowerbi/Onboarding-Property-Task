@@ -1,6 +1,5 @@
 /*task1.c.i*/
 
-
 select PropertyHomeValue.PropertyId,
 Property.Name as PropertyName, 
 TenantProperty.PaymentAmount, 
