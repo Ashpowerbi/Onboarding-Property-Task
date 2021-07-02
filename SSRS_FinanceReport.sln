@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "SSRS_FinanceReport", "SSRS_FinanceReport\SSRS_FinanceReport.rptproj", "{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		DebugLocal|Default = DebugLocal|Default
+		Release|Default = Release|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}.Debug|Default.ActiveCfg = Debug
+		{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}.Debug|Default.Build.0 = Debug
+		{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}.Debug|Default.Deploy.0 = Debug
+		{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}.DebugLocal|Default.Build.0 = DebugLocal
+		{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}.Release|Default.ActiveCfg = Release
+		{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}.Release|Default.Build.0 = Release
+		{BE2A4236-54DA-4406-B7FA-C1C370DBAC7B}.Release|Default.Deploy.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88AAE319-82F5-4B4B-B012-417806ADC112}
+	EndGlobalSection
+EndGlobal
